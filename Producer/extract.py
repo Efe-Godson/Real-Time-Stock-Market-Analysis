@@ -1,12 +1,13 @@
 import requests
 from config import logger, headers, url
 
+
 def connect_to_api():
 	stocks = ['TSLA','MSFT','GOOGL']
 	
 	json_response = []
 	
-	for stock in range(0,len(stocks)):
+	for stock in range(0, len(stocks)):
 		querystring = {"function":"TIME_SERIES_INTRADAY",
                "symbol": f"{stocks[stock]}",
                "outputsize":"compact",
@@ -19,12 +20,19 @@ def connect_to_api():
 			response.raise_for_status()
 
 			data = response.json()
-			logger.info("Stock Successfully loaded")
+
+			logger.info(f"Stocks {stocks[stock]} loaded successfully ")
 
 			json_response.append(data)
+
 		except requests.exceptions.RequestException as e:
 			logger.error(f"Error on stock: {e}")
 			break
+
+
+	return json_response	
+
+
 
 def extract_json(response):
 	records = []
@@ -42,5 +50,5 @@ def extract_json(response):
 				"low": metrics["3. low"]
 			}
 
-			record.append(record)
-	return record	
+			records.append(record)
+	return records	
