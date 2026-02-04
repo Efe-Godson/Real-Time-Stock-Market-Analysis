@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 BASEURL = "alpha-vantage.p.rapidapi.com"
 url = f"https://{BASEURL}/query"
 
-api_key = os.getenv("API_KEY")
+api_key = os.getenv('API_KEY')
 
 headers = {
 	"X-RapidAPI-Key": api_key,
